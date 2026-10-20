@@ -1,17 +1,16 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="system">
+<html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="color-scheme" content="light dark" />
     <meta name="csrf-token" content={get_csrf_token()} />
     <meta name="color-scheme" content="light dark" />
 
     <script>
       // Apply the persisted (or system) color scheme before the first paint so the
-      // page never flashes the wrong theme. Keep this in sync with `initTheme` in
-      // assets/js/app.ts.
+      // page never flashes the wrong theme. Keep this in sync with the theme
+      // helpers in assets/js/app.ts.
       (() => {
         let stored = null;
         try {

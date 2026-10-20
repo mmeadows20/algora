@@ -8,9 +8,6 @@ const fs = require("fs");
 const colors = require("tailwindcss/colors");
 
 module.exports = {
-  // The theme is driven by the `dark` class on <html> (see assets/js/theme.ts)
-  // so that users can override their system preference.
-  darkMode: "class",
   content: [
     "./js/**/*.js",
     "./js/**/*.ts",
