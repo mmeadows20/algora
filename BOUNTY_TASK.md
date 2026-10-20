@@ -1,13 +1,18 @@
-# Bounty Objective: Feature Request: Navigation to /profile/:handle
-Target: algora-io/algora Issue #209
-URL: https://github.com/algora-io/algora/issues/209
+# Bounty Objective: Feature Request: Customize list of contributions
+Target: algora-io/algora Issue #208
+URL: https://github.com/algora-io/algora/issues/208
 
 ## Issue Description
-When I got an email reach-out it included a link to edit my preferences at /profile/:handle. There appears to be no way to navigate to that page from the UI?
+My profile lists my "top contributions" in a frankly insulting way.
 
-I'm not adding a link to my own here, because if anybody navigates there and clicks "Save Preferences" it will send an email to my real email address. But here, checkout Zafer's and feel free to spam him with an email: https://algora.io/profile/zcesur
+It is uneditable and sorted by Github stars for anything I've ever contributed to? The top thing it lists for me is "khoj", for which I created a single, 2 line, untested PR. It also lists one of my smaller personal projects (headjack) instead of a [newer project](https://github.com/arcuru/eidetica) with more stars, more recent activity, and 10's of kLoC of Rust.
 
-I assume the disconnect, and why it needs to send an email, is because _that_ page is hosted from the closed-source AlgoraCloud layer. 
+If I could customize what it actually says that would be far more valuable. It appears to be some form of ranking based off GitHub stars which is an unfathomably useless metric when attempting to hire people to work on contracts. Nobody cares that I submitted a tiny fix to a project with a large amount of stars. People do care if I've written or contributed to domain specific projects.
+
+It also hilariously lists me as a top C++ dev despite not having publicly written C++ in several years and none of the listed projects being written in C++ at all.
+
+<img src="https://algora.io/og/user/arcuru" />
+
 
 ## Instructions for Kuro (Autonomous Solver):
 1. Use skills: `systematic-debugging` and `code-review-and-quality`.
