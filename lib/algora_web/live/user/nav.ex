@@ -49,4 +49,8 @@ defmodule AlgoraWeb.User.Nav do
   def assign_nav_items(socket, :default) do
     assign(socket, :nav, [])
   end
+
+  # Viewing a profile renders the same (empty) sidebar as the other user pages;
+  # without this clause mounting the profile page raises a FunctionClauseError.
+  def assign_nav_items(socket, :viewer), do: assign_nav_items(socket, :default)
 end

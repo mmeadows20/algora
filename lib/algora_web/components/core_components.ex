@@ -231,6 +231,14 @@ defmodule AlgoraWeb.CoreComponents do
           </div>
         </div>
       </:link>
+      <:link :if={@current_user.handle} href={~p"/#{@current_user.handle}/profile"}>
+        <div class="flex items-center whitespace-nowrap">
+          <div class="mr-3 flex size-10 items-center justify-center bg-accent rounded-full">
+            <.icon name="tabler-user" class="size-6" />
+          </div>
+          <div class="font-semibold">Profile</div>
+        </div>
+      </:link>
       <:link
         :for={ctx <- @all_contexts |> Enum.filter(&(&1.id != @current_user.id))}
         :if={@current_context.id != ctx.id}

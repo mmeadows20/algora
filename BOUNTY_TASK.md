@@ -1,25 +1,13 @@
-# Bounty Objective: Enhancement: Add support for system dark mode via prefers-color-scheme or manual theme toggle
-Target: algora-io/algora Issue #222
-URL: https://github.com/algora-io/algora/issues/222
+# Bounty Objective: Feature Request: Navigation to /profile/:handle
+Target: algora-io/algora Issue #209
+URL: https://github.com/algora-io/algora/issues/209
 
 ## Issue Description
-### Is your feature request related to a problem? Please describe.
-Many users (including myself) prefer or require dark mode for reduced eye strain, especially during late-night coding/browsing. Modern browsers support the `prefers-color-scheme` media query, and popular sites (GitHub, Stack Overflow, Twitter/X, etc.) automatically adapt to the user's system preference (light/dark).
+When I got an email reach-out it included a link to edit my preferences at /profile/:handle. There appears to be no way to navigate to that page from the UI?
 
-Currently, Algora.io appears to use a fixed light theme:
-- No visible dark mode toggle in the UI (header, footer, profile pages, bounty boards, etc.).
-- The site does not seem to respect `prefers-color-scheme: dark` — elements stay in light mode even when the OS/browser is set to dark.
+I'm not adding a link to my own here, because if anybody navigates there and clicks "Save Preferences" it will send an email to my real email address. But here, checkout Zafer's and feel free to spam him with an email: https://algora.io/profile/zcesur
 
-This leads to inconsistent experience when users switch system themes.
-### Describe the solution you'd like
-Implement automatic dark mode support by:
-1. Using Tailwind CSS `dark:` variants (if already using Tailwind) or CSS custom properties/variables with `@media (prefers-color-scheme: dark)` queries.
-2. Adding a manual theme toggle (sun/moon icon) in the header or settings for users who want to override system preference.
-3. Ensuring all elements adapt properly: backgrounds, text colors, cards, borders, syntax highlighting (if any), charts (e.g., punchcard), buttons, modals, etc.
-
-Happy to help test or submit a PR if it sounds good? @zcesur 
-
-Thanks for building a great OSS bounty platform!
+I assume the disconnect, and why it needs to send an email, is because _that_ page is hosted from the closed-source AlgoraCloud layer. 
 
 ## Instructions for Kuro (Autonomous Solver):
 1. Use skills: `systematic-debugging` and `code-review-and-quality`.
