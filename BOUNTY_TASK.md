@@ -1,17 +1,19 @@
-# Bounty Objective: Feature Request: Customize list of contributions
-Target: algora-io/algora Issue #208
-URL: https://github.com/algora-io/algora/issues/208
+# Bounty Objective: Bug: Incorrect Profile data
+Target: algora-io/algora Issue #168
+URL: https://github.com/algora-io/algora/issues/168
 
 ## Issue Description
-My profile lists my "top contributions" in a frankly insulting way.
+Hi @zcesur, thanks for building Algora.io — I really love the platform!
 
-It is uneditable and sorted by Github stars for anything I've ever contributed to? The top thing it lists for me is "khoj", for which I created a single, 2 line, untested PR. It also lists one of my smaller personal projects (headjack) instead of a [newer project](https://github.com/arcuru/eidetica) with more stars, more recent activity, and 10's of kLoC of Rust.
+After signing in, I checked my [profile](https://algora.io/qxprakash) page and noticed something that didn’t quite make sense. The total contributions data appears to be incorrect for one of my repositories I've contributed to i.e. Transloadit . you can cross check this by clicking on the repo card itself where it would navigate you to `"https://github.com/#{owner.provider_login}/#{List.first(contributions).repository.name}/pulls?q=author%3A#{@user.provider_login}+is%3Amerged+"`
 
-If I could customize what it actually says that would be far more valuable. It appears to be some form of ranking based off GitHub stars which is an unfathomably useless metric when attempting to hire people to work on contracts. Nobody cares that I submitted a tiny fix to a project with a large amount of stars. People do care if I've written or contributed to domain specific projects.
+After digging through the code locally, I found the section responsible for rendering this:
 
-It also hilariously lists me as a top C++ dev despite not having publicly written C++ in several years and none of the listed projects being written in C++ at all.
+https://github.com/algora-io/algora/blob/07b974183214b83ac09bfd52c5bac37ce5181b45/lib/algora_web/live/user/profile_live.ex#L273-L276
 
-<img src="https://algora.io/og/user/arcuru" />
+Any idea what could be causing this?
+
+Also there are a bunch of other repos which I've contributed to in the past why are they not visible ?
 
 
 ## Instructions for Kuro (Autonomous Solver):
