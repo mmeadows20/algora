@@ -12,6 +12,31 @@ defmodule AlgoraWeb.Components.Header do
     ]
   end
 
+  attr :id, :string, required: true
+  attr :class, :string, default: nil
+
+  @doc """
+  Sun/moon button that switches between the light and dark themes.
+
+  The theme itself is resolved by the bootstrap script in `root.html.heex` and the
+  `ThemeToggle` hook in `assets/js/app.ts`; this component only renders the control.
+  """
+  def theme_toggle(assigns) do
+    ~H"""
+    <button
+      id={@id}
+      type="button"
+      phx-hook="ThemeToggle"
+      class={classes(["rounded-md p-2.5 text-muted-foreground hover:text-foreground", @class])}
+      aria-label="Switch color theme"
+      title="Switch color theme"
+    >
+      <.icon name="tabler-moon" class="size-5 dark:hidden" />
+      <.icon name="tabler-sun" class="hidden size-5 dark:block" />
+    </button>
+    """
+  end
+
   attr :class, :string, default: nil
   attr :hide_banner, :boolean, default: false
   attr :overlay, :boolean, default: true
@@ -60,6 +85,7 @@ defmodule AlgoraWeb.Components.Header do
         </div>
 
         <div class="w-full hidden lg:flex-1 lg:flex lg:justify-end gap-4">
+          <.theme_toggle id="theme-toggle-desktop" class="self-center" />
           <.link
             class="flex items-center justify-center text-sm text-foreground/80 hover:text-foreground"
             href="tel:+16504202207"
@@ -111,14 +137,17 @@ defmodule AlgoraWeb.Components.Header do
           <!-- Mobile menu content -->
           <div class="flex items-center justify-between">
             <.wordmark class="h-8 w-auto text-foreground" />
-            <button
-              type="button"
-              class="rounded-md p-2.5 text-muted-foreground hover:text-foreground"
-              onclick="document.getElementById('mobile-menu').classList.add('hidden'); document.body.classList.remove('overflow-hidden')"
-            >
-              <span class="sr-only">Close menu</span>
-              <.icon name="tabler-x" class="h-6 w-6" />
-            </button>
+            <div class="flex items-center gap-1">
+              <.theme_toggle id="theme-toggle-mobile" />
+              <button
+                type="button"
+                class="rounded-md p-2.5 text-muted-foreground hover:text-foreground"
+                onclick="document.getElementById('mobile-menu').classList.add('hidden'); document.body.classList.remove('overflow-hidden')"
+              >
+                <span class="sr-only">Close menu</span>
+                <.icon name="tabler-x" class="h-6 w-6" />
+              </button>
+            </div>
           </div>
 
           <div class="mt-6 flow-root">

@@ -8,6 +8,9 @@ const fs = require("fs");
 const colors = require("tailwindcss/colors");
 
 module.exports = {
+  // The theme is driven by the `dark` class on <html> (see assets/js/theme.ts)
+  // so that users can override their system preference.
+  darkMode: "class",
   content: [
     "./js/**/*.js",
     "./js/**/*.ts",
@@ -17,6 +20,10 @@ module.exports = {
     "./svelte/**/*.svelte",
     "../priv/content/**/*.md",
   ],
+  // The `.dark` class is toggled on <html> by the theme bootstrap in root.html.heex.
+  // Using a class (instead of the default "media") lets users override the system
+  // preference manually while still defaulting to it.
+  darkMode: "class",
   theme: {
     container: {
       center: true,

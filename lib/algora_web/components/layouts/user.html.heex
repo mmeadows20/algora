@@ -247,6 +247,9 @@
       <% end %>
       <%= if assigns[:pinned_orgs] && assigns[:pinned_orgs] != [] do %>
         <ul role="list" class="ml-auto flex items-center gap-x-2">
+          <li>
+            <AlgoraWeb.Components.Header.theme_toggle id="theme-toggle-navbar" />
+          </li>
           <%= for org <- @pinned_orgs do %>
             <li>
               <.link href={"/#{org.handle}/admin"}>
@@ -264,6 +267,7 @@
         :if={is_nil(assigns[:pinned_orgs]) || assigns[:pinned_orgs] == []}
         class="ml-auto flex items-center gap-x-6"
       >
+        <AlgoraWeb.Components.Header.theme_toggle id="theme-toggle-navbar" />
         <.link
           :if={Algora.Stargazer.count()}
           class="group w-fit outline-none hidden sm:flex"

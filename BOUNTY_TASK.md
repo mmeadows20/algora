@@ -1,55 +1,25 @@
-# Bounty Objective: [Bug] Successful GitHub login redirects to /home which returns 404
-Target: algora-io/algora Issue #329
-URL: https://github.com/algora-io/algora/issues/329
+# Bounty Objective: Enhancement: Add support for system dark mode via prefers-color-scheme or manual theme toggle
+Target: algora-io/algora Issue #222
+URL: https://github.com/algora-io/algora/issues/222
 
 ## Issue Description
-## Summary
+### Is your feature request related to a problem? Please describe.
+Many users (including myself) prefer or require dark mode for reduced eye strain, especially during late-night coding/browsing. Modern browsers support the `prefers-color-scheme` media query, and popular sites (GitHub, Stack Overflow, Twitter/X, etc.) automatically adapt to the user's system preference (light/dark).
 
-After signing in with GitHub, authentication succeeds and my account is created correctly, but Algora redirects me to `/home`, which returns a 404 page.
+Currently, Algora.io appears to use a fixed light theme:
+- No visible dark mode toggle in the UI (header, footer, profile pages, bounty boards, etc.).
+- The site does not seem to respect `prefers-color-scheme: dark` — elements stay in light mode even when the OS/browser is set to dark.
 
-## Account
+This leads to inconsistent experience when users switch system themes.
+### Describe the solution you'd like
+Implement automatic dark mode support by:
+1. Using Tailwind CSS `dark:` variants (if already using Tailwind) or CSS custom properties/variables with `@media (prefers-color-scheme: dark)` queries.
+2. Adding a manual theme toggle (sun/moon icon) in the header or settings for users who want to override system preference.
+3. Ensuring all elements adapt properly: backgrounds, text colors, cards, borders, syntax highlighting (if any), charts (e.g., punchcard), buttons, modals, etc.
 
-GitHub username: Youngboy1609
+Happy to help test or submit a PR if it sounds good? @zcesur 
 
-## What works
-
-* Login with GitHub succeeds
-* https://algora.io/bounties loads correctly
-* Transactions / payout pages load correctly
-* Account information is visible in the top-right corner
-
-## What fails
-
-* https://algora.io/home
-* https://algora.io/dashboard
-* https://algora.io/profile
-* https://algora.io/settings
-* https://algora.io/users/Youngboy1609
-
-All return 404.
-
-## Steps to reproduce
-
-1. Sign in with GitHub
-2. Authentication succeeds
-3. Redirect occurs to https://algora.io/home
-4. Page returns 404
-
-## Troubleshooting already performed
-
-* Verified GitHub email
-* Revoked Algora OAuth access and re-authorized
-* Cleared cookies
-* Tested in incognito mode
-* Tested multiple URLs manually
-
-## Observed behavior
-
-Authentication appears successful because bounties and payout pages work normally, but the post-login redirect target appears broken or unavailable.
-
-## Expected behavior
-
-Users should be redirected to a valid dashboard, profile, or landing page after successful login.
+Thanks for building a great OSS bounty platform!
 
 ## Instructions for Kuro (Autonomous Solver):
 1. Use skills: `systematic-debugging` and `code-review-and-quality`.

@@ -11,6 +11,57 @@ import "emoji-picker-element";
 // TODO: enable strict mode
 // TODO: eliminate anys
 
+// Theme handling. The initial class is applied by the inline bootstrap script in
+// root.html.heex (before first paint); this keeps the document in sync afterwards,
+// follows OS changes while the user has no explicit preference, and backs the
+// `ThemeToggle` hook.
+const THEME_STORAGE_KEY = "theme";
+const systemThemeQuery = window.matchMedia("(prefers-color-scheme: dark)");
+
+type Theme = "light" | "dark" | "system";
+
+function getStoredTheme(): Theme {
+  try {
+    const stored = localStorage.getItem(THEME_STORAGE_KEY);
+    if (stored === "light" || stored === "dark") return stored;
+  } catch (_) {
+    // localStorage is unavailable (private mode, blocked cookies, etc.).
+  }
+  return "system";
+}
+
+function resolveTheme(theme: Theme): "light" | "dark" {
+  if (theme === "system") return systemThemeQuery.matches ? "dark" : "light";
+  return theme;
+}
+
+function applyTheme(theme: Theme) {
+  const resolved = resolveTheme(theme);
+  document.documentElement.classList.toggle("dark", resolved === "dark");
+  document.documentElement.dataset.theme = resolved;
+  window.dispatchEvent(new CustomEvent("theme-change", { detail: resolved }));
+}
+
+function setTheme(theme: Theme) {
+  try {
+    if (theme === "system") localStorage.removeItem(THEME_STORAGE_KEY);
+    else localStorage.setItem(THEME_STORAGE_KEY, theme);
+  } catch (_) {
+    // Ignore persistence failures; the theme still applies to this page view.
+  }
+  applyTheme(theme);
+}
+
+function toggleTheme() {
+  setTheme(resolveTheme(getStoredTheme()) === "dark" ? "light" : "dark");
+}
+
+applyTheme(getStoredTheme());
+
+systemThemeQuery.addEventListener("change", () => {
+  if (getStoredTheme() === "system") applyTheme("system");
+});
+
 interface PhxEvent extends Event {
   target: Element;
   detail: Record<string, any>;
@@ -379,6 +430,27 @@ function stripHomeCandidateSwipeClasses(el: HTMLElement) {
 }
 
 const Hooks = {
+  ThemeToggle: {
+    mounted() {
+      this.syncLabel = () => {
+        const isDark = document.documentElement.classList.contains("dark");
+        const label = isDark ? "Switch to light theme" : "Switch to dark theme";
+        this.el.setAttribute("aria-label", label);
+        this.el.setAttribute("title", label);
+      };
+      this.syncLabel();
+      this.el.addEventListener("click", toggleTheme);
+      window.addEventListener("theme-change", this.syncLabel);
+    },
+    updated() {
+      this.syncLabel?.();
+    },
+    destroyed() {
+      if (this.syncLabel) {
+        window.removeEventListener("theme-change", this.syncLabel);
+      }
+    },
+  },
   Capture: {
     mounted() {
       const token = this.el.getAttribute("data-token");
